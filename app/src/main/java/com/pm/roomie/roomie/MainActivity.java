@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -136,12 +139,25 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (response.isSuccessful()) {
                             User resObj = response.body();
-                            if(resObj.getLogin().equals("true")){
+                            if(!(resObj.getId()==0)){
+                                createToast("Logowanie udane");
+                                finish();
+                                Intent intent = new Intent(MainActivity.this, StartActivity.class);
+                                intent.putExtra("instructor", resObj.getName()+" "+resObj.getSurname());
+                                intent.putExtra("id", resObj.getId());
+                                intent.putExtra("name", resObj.getName());
+                                intent.putExtra("surname", resObj.getSurname());
+                                intent.putExtra("phone", resObj.getPhone());
+                                intent.putExtra("login", resObj.getLogin());
+                                String welcome = getString(R.string.welcome) +resObj.getName()+"!";
+                                Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+                                startActivity(intent);
+                                finish();
 
                             } else {
-                                Toast.makeText(MainActivity.this,"Login lub hasło jest niepoprawne",Toast.LENGTH_SHORT).show();
+                                createToast("Login lub hasło jest niepoprawne");
                             }}else{
-                            Toast.makeText(MainActivity.this,"Wystąpił błąd. Spróbuj ponownie",Toast.LENGTH_SHORT).show();
+                            createToast("Wystąpił błąd. Spróbuj ponownie");
                         }
                     }
 
@@ -155,12 +171,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    private void createToast(String toastText) {
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.custom_toast,
+                (ViewGroup) findViewById(R.id.custom_toast_container));
+        TextView text = (TextView) layout.findViewById(R.id.text);
+        text.setText(toastText);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        createToast(welcome);
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

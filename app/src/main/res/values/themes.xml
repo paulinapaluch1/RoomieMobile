@@ -2,15 +2,10 @@
 <resources>
     <style name="ThemeMy" parent="Theme.AppCompat.NoActionBar">
 
-    <item name="colorPrimary">#f7f6f6</item>
+    <item name="colorPrimary">@color/purple_700</item>
     <item name="colorAccent">#dc003a</item>
         <item name="colorPrimaryDark">#dc00dd</item> //statusbar color
-<!--        <item name="android:windowBackground">#f7f6f6</item>-->
-<!--        <item name="android:colorForeground">#f7f6f6</item>-->
-<!--        <item name="android:colorForegroundInverse">#f7f6f6</item>-->
-<!--        <item name="android:colorBackground">#f7f6f6</item>-->
-<!--        <item name="android:colorBackgroundCacheHint">#f7f6f6</item>-->
-<!--        <item name="colorBackgroundFloating">#f7f6f6</item>-->
+
 
         <item name="android:background">#f7f6f6</item>
         <item name="android:windowBackground">@color/purple_200</item>
