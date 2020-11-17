@@ -4,12 +4,10 @@
 
     <item name="colorPrimary">@color/purple_700</item>
     <item name="colorAccent">#dc003a</item>
-        <item name="colorPrimaryDark">#dc00dd</item> //statusbar color
+        <item name="colorPrimaryDark">#dc003a</item> //statusbar color
 
 
         <item name="android:background">#f7f6f6</item>
-        <item name="android:windowBackground">@color/purple_200</item>
-        <item name="android:colorBackground">@color/purple_200</item>
         <item name="android:textColorPrimary">@color/black</item>
 
     </style>
