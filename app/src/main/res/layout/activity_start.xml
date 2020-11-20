@@ -9,6 +9,42 @@
     android:background="#F7F6F6"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#dc003a"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                android:layout_marginStart="36dp"
+                android:drawableStart="@drawable/back32"/>
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleX="1.7"
+                android:scaleY="1.7"
+                android:layout_marginEnd="24dp"
+                android:layout_gravity="right"
+                android:adjustViewBounds="true"
+                android:drawableStart="@drawable/exit"/>
+
+        </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
+
+
        <Button
         android:id="@+id/flatMembers"
         android:layout_width="300dp"
