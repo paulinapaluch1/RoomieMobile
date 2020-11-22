@@ -29,8 +29,8 @@
         android:supportsRtl="true"
         android:theme="@style/ThemeMy"
         android:usesCleartextTraffic="true">
-        <activity android:name=".StartActivity"></activity>
-        <!-- <meta-data -->
+        <activity android:name=".FlatmatesActivity"></activity>
+        <activity android:name=".StartActivity" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <!-- android:value="AIzaSyBI0sXO1I6aOWhAtU99fYU2u-FqKADdJlA"/> -->
         <activity
