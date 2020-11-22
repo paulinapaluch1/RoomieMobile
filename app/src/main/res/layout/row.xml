@@ -8,14 +8,14 @@
 
 
     <RelativeLayout
-        android:layout_width="402dp"
-        android:layout_height="708dp"
+        android:layout_width="410dp"
+        android:layout_height="96dp"
         android:background="#CCFFFFFF"
         android:orientation="horizontal"
         android:padding="5dp"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="7dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-2dp">
 
 
         <TextView
@@ -26,10 +26,9 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
             android:text="Krzysztof Nowak"
-            android:textSize="25sp"
             android:textColor="#dc003a"
+            android:textSize="25sp"
             android:typeface="serif"
-
 
 
             ></TextView>
@@ -43,9 +42,8 @@
             android:layout_marginLeft="10dp"
             android:text="Telefon: 665139965"
             android:textColor="#000"
-            android:typeface="serif"
             android:textSize="15sp"
-
+            android:typeface="serif"
 
 
             ></TextView>
@@ -59,8 +57,8 @@
             android:layout_marginBottom="5dp"
             android:text="Saldo: 0zł"
             android:textColor="#000"
-            android:typeface="serif"
             android:textSize="15sp"
+            android:typeface="serif"
 
 
             ></TextView>
@@ -69,23 +67,22 @@
             android:id="@+id/edit"
             android:layout_width="134dp"
             android:layout_height="36dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="4dp"
             android:layout_toRightOf="@+id/phone"
-            android:text="Edytuj"
             android:background="@drawable/button_frame"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="50dp"
-            />
+            android:text="Edytuj"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/archive"
             android:layout_width="134dp"
             android:layout_height="36dp"
             android:layout_below="@+id/edit"
+            android:layout_marginLeft="50dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/phone"
             android:background="@drawable/button_frame"
-            android:layout_marginLeft="50dp"
             android:text="Archiwizuj"
             app:layout_constraintTop_toTopOf="parent" />
 

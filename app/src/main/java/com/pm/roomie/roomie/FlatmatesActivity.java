@@ -28,7 +28,7 @@ public class FlatmatesActivity extends AppCompatActivity {
 
     ListView listView;
     String[] names;
-    String[] debits={"70","50"};
+    String[] debits={"70","50","10","0","0","40","20"};
     String[] phones={"12345678","5358706345"};
 
     @Override

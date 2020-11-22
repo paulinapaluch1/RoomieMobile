@@ -35,8 +35,8 @@ public class FlatmateAdapter extends ArrayAdapter<String> {
         TextView type = row.findViewById(R.id.phone);
 
         name.setText(names[position]);
-        hour.setText("Saldo: "+debits[position]);
-        type.setText("Telefon: "+phones[position]);
+        hour.setText("Saldo: " + debits[position]+"zł");
+        type.setText("Telefon: " + phones[position]);
 
         return row;
     }
