@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Path;
 
 public interface UserService {
@@ -16,6 +17,10 @@ public interface UserService {
 
     @GET("getFlatmates/{userId}")
     Call<ArrayList<User>> getFlatmates(@Path("userId") int userId);
+
+
+    @HTTP(method = "POST", path = "archive/{id}", hasBody = true)
+    Call<Boolean> archiveUser(@Path("id") Integer id);
 
 
 

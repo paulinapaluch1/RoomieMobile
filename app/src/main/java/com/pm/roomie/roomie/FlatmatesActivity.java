@@ -50,15 +50,16 @@ public class FlatmatesActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ArrayList<User> flatmatesList = response.body();
                     if((flatmatesList!=null)){
-                        createToast("ok");
                         int size = flatmatesList.size();
                         ArrayList<String> namesList=(ArrayList) flatmatesList.stream().map(f->f.getName().concat(" ").concat(f.getSurname())).collect(Collectors.toList());
                         names = getStringArray(namesList);
                         ArrayList<String> phonesList=(ArrayList) flatmatesList.stream().map(f->f.getPhone()).collect(Collectors.toList());
                         phones = getStringArray(phonesList);
+                        ArrayList<Integer> idsList=(ArrayList) flatmatesList.stream().map(f->f.getId()).collect(Collectors.toList());
+                        Integer[] ids = getIntegerArray(idsList);
 
                         listView = findViewById(R.id.listView);
-                        FlatmateAdapter flatmateAdapter = new FlatmateAdapter(getApplicationContext(),names,debits,phones);
+                        FlatmateAdapter flatmateAdapter = new FlatmateAdapter(getApplicationContext(),names,debits,phones, ids);
                         listView.setAdapter(flatmateAdapter);
                     } else {
                         createToast("Lista lokatorow jest pusta");
@@ -70,7 +71,6 @@ public class FlatmatesActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ArrayList<User>> call, Throwable t) {
                 Toast.makeText(FlatmatesActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
-
             }
 
         });
@@ -93,6 +93,15 @@ public class FlatmatesActivity extends AppCompatActivity {
     public static String[] getStringArray(ArrayList<String> arr)
     {
         String str[] = new String[arr.size()];
+        for (int j = 0; j < arr.size(); j++) {
+            str[j] = arr.get(j);
+        }
+        return str;
+    }
+
+    public static Integer[] getIntegerArray(ArrayList<Integer> arr)
+    {
+        Integer str[] = new Integer[arr.size()];
         for (int j = 0; j < arr.size(); j++) {
             str[j] = arr.get(j);
         }
