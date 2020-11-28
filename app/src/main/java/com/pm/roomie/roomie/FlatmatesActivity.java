@@ -1,6 +1,7 @@
 package com.pm.roomie.roomie;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -58,11 +60,13 @@ public class FlatmatesActivity extends AppCompatActivity {
         Call<ArrayList<User>> call = userService.getFlatmates(currentUserId);
 
         call.enqueue(new Callback<ArrayList<User>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
                 if (response.isSuccessful()) {
                     ArrayList<User> flatmatesList = response.body();
                     if((flatmatesList!=null)){
+                        int size = flatmatesList.size();
                         ArrayList<String> namesList=(ArrayList) flatmatesList.stream().map(f->f.getName().concat(" ").concat(f.getSurname())).collect(Collectors.toList());
                         names = getStringArray(namesList);
                         ArrayList<String> phonesList=(ArrayList) flatmatesList.stream().map(f->f.getPhone()).collect(Collectors.toList());

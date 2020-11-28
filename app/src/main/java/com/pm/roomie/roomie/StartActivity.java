@@ -13,23 +13,37 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        final Button billsButton = findViewById(R.id.bills);
         Bundle extras = getIntent().getExtras();
         addNewFlatmate(extras);
+
+        billsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, BillsActivity.class);
+                intent.putExtra("userId",  (int)extras.get("id"));
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
 
 
     private void addNewFlatmate(Bundle extras) {
         final Button flatmatesButton = findViewById(R.id.flatMembers);
+
         flatmatesButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(StartActivity.this, FlatmatesActivity.class);
-                    intent.putExtra("userId",  (int)extras.get("id"));
-                    startActivity(intent);
-                    finish();
-                }
-            });
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, FlatmatesActivity.class);
+                intent.putExtra("userId",  (int)extras.get("id"));
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
     }
 
     private void goToMainActivity() {
