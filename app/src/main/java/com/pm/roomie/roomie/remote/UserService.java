@@ -1,5 +1,6 @@
 package com.pm.roomie.roomie.remote;
 
+import com.pm.roomie.roomie.model.Bill;
 import com.pm.roomie.roomie.model.User;
 
 import java.util.ArrayList;
@@ -17,7 +18,8 @@ public interface UserService {
     @GET("getFlatmates/{userId}")
     Call<ArrayList<User>> getFlatmates(@Path("userId") int userId);
 
-
+    @GET("getBills/{userId}")
+    Call<ArrayList<Bill>> getBills(@Path("userId") int userId);
 
 //
 //    @HTTP(method = "POST", path = "send/{instructor}", hasBody = true)

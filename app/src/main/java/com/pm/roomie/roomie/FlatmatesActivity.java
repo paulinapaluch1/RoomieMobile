@@ -1,5 +1,6 @@
 package com.pm.roomie.roomie;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.pm.roomie.roomie.model.User;
@@ -45,6 +47,7 @@ public class FlatmatesActivity extends AppCompatActivity {
         Call<ArrayList<User>> call = userService.getFlatmates(currentUserId);
 
         call.enqueue(new Callback<ArrayList<User>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
                 if (response.isSuccessful()) {
