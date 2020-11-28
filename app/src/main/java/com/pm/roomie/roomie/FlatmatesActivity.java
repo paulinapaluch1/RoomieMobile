@@ -1,15 +1,20 @@
 package com.pm.roomie.roomie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.pm.roomie.roomie.login.LoginViewModel;
+import com.pm.roomie.roomie.login.LoginViewModelFactory;
 import com.pm.roomie.roomie.model.User;
 import com.pm.roomie.roomie.remote.ApiUtils;
 import com.pm.roomie.roomie.remote.UserService;
@@ -25,11 +30,12 @@ import retrofit2.Response;
 public class FlatmatesActivity extends AppCompatActivity {
 
     private UserService userService;
+    private LoginViewModel loginViewModel;
 
     ListView listView;
     String[] names;
-    String[] debits={"70","50","10","0","0","40","20"};
-    String[] phones={"12345678","5358706345"};
+    String[] debits = {"70","50","10","0","0","40","20"};
+    String[] phones = {"12345678","5358706345"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +47,14 @@ public class FlatmatesActivity extends AppCompatActivity {
         if (extras != null) {
             currentUserId= (int)extras.get("userId");
         }
+        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory()).get(LoginViewModel.class);
 
+        showFlatmates(currentUserId);
+        addLogoutListener();
+        addAddListener();
+    }
+
+    private void showFlatmates(int currentUserId) {
         Call<ArrayList<User>> call = userService.getFlatmates(currentUserId);
 
         call.enqueue(new Callback<ArrayList<User>>() {
@@ -50,21 +63,19 @@ public class FlatmatesActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ArrayList<User> flatmatesList = response.body();
                     if((flatmatesList!=null)){
-                        int size = flatmatesList.size();
                         ArrayList<String> namesList=(ArrayList) flatmatesList.stream().map(f->f.getName().concat(" ").concat(f.getSurname())).collect(Collectors.toList());
                         names = getStringArray(namesList);
                         ArrayList<String> phonesList=(ArrayList) flatmatesList.stream().map(f->f.getPhone()).collect(Collectors.toList());
                         phones = getStringArray(phonesList);
                         ArrayList<Integer> idsList=(ArrayList) flatmatesList.stream().map(f->f.getId()).collect(Collectors.toList());
                         Integer[] ids = getIntegerArray(idsList);
-
                         listView = findViewById(R.id.listView);
                         FlatmateAdapter flatmateAdapter = new FlatmateAdapter(getApplicationContext(),names,debits,phones, ids);
                         listView.setAdapter(flatmateAdapter);
                     } else {
                         createToast("Lista lokatorow jest pusta");
                     }}else{
-                    createToast("Wystąpił błąd. Spróbuj ponownie");
+                        createToast("Wystąpił błąd. Spróbuj ponownie");
                 }
             }
 
@@ -72,10 +83,33 @@ public class FlatmatesActivity extends AppCompatActivity {
             public void onFailure(Call<ArrayList<User>> call, Throwable t) {
                 Toast.makeText(FlatmatesActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
             }
-
         });
+    }
 
+    private void addLogoutListener() {
+        Button archiveButton = (Button) findViewById(R.id.logout);
+        archiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginViewModel.logout();
+                Intent intent = new Intent(FlatmatesActivity.this, MainActivity.class);
+                Toast.makeText(getApplicationContext(), "Wylogowano", Toast.LENGTH_LONG).show();
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
 
+    private void addAddListener() {
+        Button addButton = (Button) findViewById(R.id.add);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FlatmatesActivity.this, EditUserFormActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void createToast(String toastText) {

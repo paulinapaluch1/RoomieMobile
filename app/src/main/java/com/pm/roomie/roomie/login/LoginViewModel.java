@@ -53,4 +53,9 @@ public class LoginViewModel extends ViewModel {
     private boolean isPasswordValid(String password) {
         return password != null;
     }
+
+    public void logout() {
+        loginRepository.logout();
+
+    }
 }

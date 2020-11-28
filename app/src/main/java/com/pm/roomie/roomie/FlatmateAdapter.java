@@ -66,8 +66,6 @@ public class FlatmateAdapter extends ArrayAdapter<String> {
                             Boolean resObj = response.body();
                             if(resObj){
                                 createToast("Zarchiwizowano użytkownika", layoutInflater, row,context);
-
-
                             } else {
                                 createToast("Archiwizacja nie powiodla się", layoutInflater, row,context);
                             }}else{
@@ -77,7 +75,7 @@ public class FlatmateAdapter extends ArrayAdapter<String> {
 
                     @Override
                     public void onFailure(Call<Boolean> call, Throwable t) {
-                        createToast("Wystąpił błąd spróbuj ponownie", layoutInflater, row,context);
+                        createToast("Wystąpił błąd. Spróbuj ponownie", layoutInflater, row,context);
 
                     }
 
@@ -85,10 +83,6 @@ public class FlatmateAdapter extends ArrayAdapter<String> {
 
             }
         });
-
-
-
-
 
         return row;
     }

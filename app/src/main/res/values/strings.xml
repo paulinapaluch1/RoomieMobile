@@ -14,5 +14,9 @@
     <string name="button">Button</string>
     <string name="secondary_color">Secondary color</string>
     <string name="email_icon">email icon</string>
+    <string name="plus">+</string>
+    <string name="name">Imię</string>
+    <string name="nazwisko">Nazwisko</string>
+    <string name="phone">Numer telefonu</string>
 
 </resources>
