@@ -6,6 +6,7 @@ import com.pm.roomie.roomie.model.User;
 import java.util.ArrayList;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Path;
@@ -22,9 +23,11 @@ public interface UserService {
     @GET("getBills/{userId}")
     Call<ArrayList<Bill>> getBills(@Path("userId") int userId);
 
-    @HTTP(method = "POST", path = "archive/{id}", hasBody = true)
+    @HTTP(method = "POST", path = "archive/{id}")
     Call<Boolean> archiveUser(@Path("id") Integer id);
 
+    @HTTP(method = "POST", path = "saveUser", hasBody = true)
+    Call<String> save(@Body User newUser);
 
 
 //

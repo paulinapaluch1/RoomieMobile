@@ -37,6 +37,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.pm.roomie.roomie.CurrentLoggedUser.setUser;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -141,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                             User resObj = response.body();
                             if(!(resObj.getId()==0)){
                                 createToast("Logowanie udane");
+                                setUser(resObj);
                                 finish();
                                 Intent intent = new Intent(MainActivity.this, StartActivity.class);
                                 intent.putExtra("instructor", resObj.getName()+" "+resObj.getSurname());

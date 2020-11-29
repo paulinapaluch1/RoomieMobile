@@ -18,5 +18,7 @@
     <string name="name">Imię</string>
     <string name="nazwisko">Nazwisko</string>
     <string name="phone">Numer telefonu</string>
+    <string name="save">Zapisz</string>
+    <string name="cancel">Anuluj</string>
 
 </resources>

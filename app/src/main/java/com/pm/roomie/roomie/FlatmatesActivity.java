@@ -28,6 +28,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.pm.roomie.roomie.CurrentLoggedUser.getUser;
+
 
 public class FlatmatesActivity extends AppCompatActivity {
 
@@ -45,10 +47,8 @@ public class FlatmatesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_flatmates);
         userService = ApiUtils.getUserService();
         Bundle extras = getIntent().getExtras();
-        int currentUserId=0;
-        if (extras != null) {
-            currentUserId= (int)extras.get("userId");
-        }
+        int currentUserId = getUser().getId();
+
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory()).get(LoginViewModel.class);
 
         showFlatmates(currentUserId);
