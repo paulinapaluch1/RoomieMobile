@@ -29,9 +29,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditUserFormActivity"></activity>
+        <activity android:name=".EditUserActivity"></activity>
+        <activity android:name=".AddUserFormActivity" />
         <activity android:name=".FlatmatesActivity" />
-        <activity android:name=".BillsActivity"></activity>
+        <activity android:name=".BillsActivity" />
         <activity android:name=".StartActivity" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <!-- android:value="AIzaSyBI0sXO1I6aOWhAtU99fYU2u-FqKADdJlA"/> -->

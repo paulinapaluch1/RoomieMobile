@@ -20,9 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.pm.roomie.roomie.CurrentLoggedUser.setUser;
-
-public class EditUserFormActivity extends AppCompatActivity {
+public class AddUserFormActivity extends AppCompatActivity {
 
     private UserService userService;
 
@@ -34,6 +32,7 @@ public class EditUserFormActivity extends AppCompatActivity {
         addSaveListener();
         userService = ApiUtils.getUserService();
         createNewUser();
+
 
 
     }
@@ -58,7 +57,7 @@ public class EditUserFormActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditUserFormActivity.this, FlatmatesActivity.class);
+                Intent intent = new Intent(AddUserFormActivity.this, FlatmatesActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -72,17 +71,17 @@ public class EditUserFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Call<String> call = userService.save(createNewUser());
+                Call<Boolean> call = userService.save(createNewUser());
 
-                call.enqueue(new Callback<String>() {
+                call.enqueue(new Callback<Boolean>() {
                     @Override
-                    public void onResponse(Call<String> call, Response<String> response) {
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
                         if (response.isSuccessful()) {
-                            String resObj = response.body();
+                            Boolean resObj = response.body();
                             if(!(resObj == null)){
-                                createToast(resObj);
+                                createToast("Zapisano");
                                 finish();
-                                Intent intent = new Intent(EditUserFormActivity.this, FlatmatesActivity.class);
+                                Intent intent = new Intent(AddUserFormActivity.this, FlatmatesActivity.class);
                                 startActivity(intent);
                                 finish();
 
@@ -94,7 +93,7 @@ public class EditUserFormActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<String> call, Throwable t) {
+                    public void onFailure(Call<Boolean> call, Throwable t) {
                         createToast("Wystąpił błąd. Spróbuj ponownie");
 
                     }

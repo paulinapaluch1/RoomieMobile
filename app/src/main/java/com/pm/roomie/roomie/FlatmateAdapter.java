@@ -1,6 +1,7 @@
 package com.pm.roomie.roomie;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,12 +53,32 @@ public class FlatmateAdapter extends ArrayAdapter<String> {
         hour.setText("Saldo: " + debits[position]+"zł");
         type.setText("Telefon: " + phones[position]);
 
+        addArchiveUserListener(ids[position], layoutInflater, row);
+        addEditUserListener(ids[position], row);
+
+        return row;
+    }
+
+    private void addEditUserListener(Integer id, View row) {
+        Button editButton = (Button) row.findViewById(R.id.edit);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EditUserActivity.class);
+                intent.putExtra("id",id);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    private void addArchiveUserListener(Integer id, LayoutInflater layoutInflater, View row) {
         Button archiveButton = (Button) row.findViewById(R.id.archive);
         archiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Call<Boolean> call = userService.archiveUser(ids[position]);
+                Call<Boolean> call = userService.archiveUser(id);
 
                 call.enqueue(new Callback<Boolean>() {
                     @Override
@@ -83,8 +104,6 @@ public class FlatmateAdapter extends ArrayAdapter<String> {
 
             }
         });
-
-        return row;
     }
 
     private void createToast(String toastText, LayoutInflater inflater, View row, Context comtext) {

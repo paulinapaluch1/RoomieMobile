@@ -109,12 +109,14 @@ public class FlatmatesActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FlatmatesActivity.this, EditUserFormActivity.class);
+                Intent intent = new Intent(FlatmatesActivity.this, AddUserFormActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
     }
+
+
 
     private void createToast(String toastText) {
         LayoutInflater inflater = getLayoutInflater();

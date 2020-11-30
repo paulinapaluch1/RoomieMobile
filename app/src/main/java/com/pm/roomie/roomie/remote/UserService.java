@@ -27,7 +27,13 @@ public interface UserService {
     Call<Boolean> archiveUser(@Path("id") Integer id);
 
     @HTTP(method = "POST", path = "saveUser", hasBody = true)
-    Call<String> save(@Body User newUser);
+    Call<Boolean> save(@Body User newUser);
+
+    @GET("getUserById/{id}")
+    Call<User> getUserById(@Path("id")Integer id);
+
+    @HTTP(method = "POST", path = "updateUser", hasBody = true)
+    Call<Boolean> update(@Body User newUser);
 
 
 //
