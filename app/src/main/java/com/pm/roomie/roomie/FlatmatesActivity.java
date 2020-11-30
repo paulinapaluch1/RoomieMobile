@@ -110,6 +110,7 @@ public class FlatmatesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FlatmatesActivity.this, AddUserFormActivity.class);
+
                 startActivity(intent);
                 finish();
             }

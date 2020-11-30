@@ -20,6 +20,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.pm.roomie.roomie.CurrentLoggedUser.getUser;
+
 public class AddUserFormActivity extends AppCompatActivity {
 
     private UserService userService;
@@ -71,7 +73,7 @@ public class AddUserFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Call<Boolean> call = userService.save(createNewUser());
+                Call<Boolean> call = userService.save(createNewUser(),getUser().getId() );
 
                 call.enqueue(new Callback<Boolean>() {
                     @Override
