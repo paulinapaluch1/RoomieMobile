@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".MainActivity"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#dc003a"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:background="#dc003a"
+                android:drawableStart="@drawable/back32"
+                android:scaleX="1.3"
+                android:scaleY="1.3" />
+
+            <Button
+                android:id="@+id/logout"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="right"
+                android:layout_marginEnd="24dp"
+                android:adjustViewBounds="true"
+                android:background="#dc003a"
+                android:drawableStart="@drawable/exit"
+                android:scaleX="1.7"
+                android:scaleY="1.7" />
+
+        </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Internet"
+        android:textColor="#dc003a"
+        android:textSize="30sp"
+        android:typeface="serif"
+        android:layout_marginTop="100dp"
+        app:layout_constraintBottom_toTopOf="@+id/icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="187dp"
+        android:layout_height="180dp"
+        android:layout_above="@id/amount"
+        android:layout_gravity="center"
+        android:src="@drawable/bill"
+        app:layout_constraintBottom_toTopOf="@id/amount"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        android:layout_marginTop="20dp"
+        app:layout_constraintVertical_bias="0.818"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Kwota całego rachunku: 45 zł"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="serif"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/amount_flatmember"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image"/>
+
+    <TextView
+        android:id="@+id/amount_flatmember"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Kwota na mieszkańca: 15 zł"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="serif"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amount" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Data: 03-11-2020"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="serif"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amount_flatmember" />
+
+    <ListView
+
+        android:id="@+id/listViewMembers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/date"
+        tools:ignore="MissingConstraints" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

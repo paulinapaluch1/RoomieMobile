@@ -1,4 +1,3 @@
-
 package com.pm.roomie.roomie;
 
 
@@ -15,8 +14,5 @@ public class CurrentLoggedUser {
     public static User getUser() {
         return user;
     }
-
-
-
 
 }

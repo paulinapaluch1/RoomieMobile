@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,60 +17,81 @@ import androidx.annotation.Nullable;
 import com.pm.roomie.roomie.remote.ApiUtils;
 import com.pm.roomie.roomie.remote.UserService;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class BillAdapter extends ArrayAdapter<String> {
+public class MembersBillAdapter extends ArrayAdapter<String> {
 
     private UserService userService;
     private Context context;
     private Integer[] ids;
     private String[] names;
     private String[] dates;
-    private Double[] amounts;
+    Double[] dividedamounts;
+    boolean[] paid;
 
-    public BillAdapter(@NonNull Context context,  String[] names, String[] dates, Double[] amounts, Integer[] ids ) {
-        super(context, R.layout.row_bills_admin,names);
+    public MembersBillAdapter(@NonNull Context context, String[] names, String[] dates, Double[] dividedamounts, Integer[] ids ) {
+        super(context, R.layout.row_bills_user,names);
         this.context = context;
         this.names = names;
         this.dates = dates;
-        this.amounts = amounts;
+        this.dividedamounts = dividedamounts;
         this.ids = ids;
         this.userService = ApiUtils.getUserService();
     }
-
+    //
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = layoutInflater.inflate(R.layout.row_bills_admin, parent, false);
-        TextView name = row.findViewById(R.id.nameAdmin);
-        TextView date = row.findViewById(R.id.dateAdmin);
-        TextView amount = row.findViewById(R.id.amountAdmin);
+        View row = layoutInflater.inflate(R.layout.row_bills_user, parent, false);
+        TextView name = row.findViewById(R.id.name);
+        TextView date = row.findViewById(R.id.date);
+        TextView amount = row.findViewById(R.id.amount);
+        CheckBox pay = row.findViewById(R.id.checkbox_bill);
 
         name.setText(names[position]);
         date.setText("Data: " + dates[position]);
-        amount.setText("Kwota: " + amounts[position]+" zł");
+        amount.setText("Kwota: " + dividedamounts[position]+" zł");
 
         addDetailsListener(ids[position], row);
+        addPaidListener(ids[position], row);
 
         return row;
     }
 
     private void addDetailsListener(Integer id, View row) {
 
-        Button detailsButton = (Button) row.findViewById(R.id.detailsAdmin);
+        Button detailsButton = (Button) row.findViewById(R.id.details);
         detailsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ShowBillsDetailsActivity.class);
+                Intent intent = new Intent(context, ShowBillsDetailsUserActivity.class);
                 intent.putExtra("id", id);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });
     }
+
+    private void addPaidListener(Integer id, View row) {
+
+        CheckBox paidButton = (CheckBox) row.findViewById(R.id.checkbox_bill);
+        paidButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (paidButton.isChecked()) {
+                    System.out.println("Zaznaczone");
+                } else {
+                    System.out.println("Nie zaznaczone");
+                }
+            }
+        });
+    }
+
+//    public void mark_payment(View v) {
+//        if (((CheckBox) v).isChecked()) {
+//            Toast.makeText(MembersBillsActivity.this,"Zapłacone", Toast.LENGTH_LONG).show());
+//        }
+//    }
+
     private void createToast(String toastText, LayoutInflater inflater, View row, Context comtext) {
         View layout = inflater.inflate(R.layout.custom_toast,
                 (ViewGroup) row.findViewById(R.id.custom_toast_container));

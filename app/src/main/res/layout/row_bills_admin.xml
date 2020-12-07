@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="410dp"
+        android:layout_height="96dp"
+        android:background="#CCFFFFFF"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-2dp">
+
+
+        <TextView
+            android:id="@+id/nameAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:text="Rachunek za wodę"
+            android:textColor="#dc003a"
+            android:textSize="25sp"
+            android:typeface="serif"
+
+
+            ></TextView>
+
+        <TextView
+            android:id="@+id/dateAdmin"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameAdmin"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:text="Data: 03-11-2020"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:typeface="serif"
+
+
+            ></TextView>
+
+        <TextView
+            android:id="@+id/amountAdmin"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dateAdmin"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="Kwota: 39zł"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:typeface="serif"
+
+
+            ></TextView>
+
+
+        <Button
+            android:id="@+id/editAdmin"
+            android:layout_width="134dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@+id/dateAdmin"
+            android:background="@drawable/button_frame"
+            android:text="Edytuj"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/detailsAdmin"
+            android:layout_width="134dp"
+            android:layout_height="36dp"
+            android:layout_below="@+id/editAdmin"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/dateAdmin"
+            android:background="@drawable/button_frame"
+            android:text="Szczegóły"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

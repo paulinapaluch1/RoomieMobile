@@ -31,7 +31,12 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".EditUserFormActivity"></activity>
         <activity android:name=".FlatmatesActivity" />
+        <activity android:name=".BillsDetailsActivityAdmin" />
+        <activity android:name=".MembersBillsActivity" />
+        <activity android:name=".ShowBillsDetailsActivity" />
+        <activity android:name=".ShowBillsDetailsUserActivity" />
         <activity android:name=".BillsActivity"></activity>
+        <activity android:name=".EditBillFormActivity"></activity>
         <activity android:name=".StartActivity" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <!-- android:value="AIzaSyBI0sXO1I6aOWhAtU99fYU2u-FqKADdJlA"/> -->
