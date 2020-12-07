@@ -1,6 +1,6 @@
 package com.pm.roomie.roomie.model;
 
-import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -9,9 +9,9 @@ public class Bill {
 
     private int id;
     private double amount;
-    private Date date;
+    private String billDate;
     private String comment;
     private BillType billType;
     private Flat flat;
-
+    List<MembersBill> membersBillList;
 }

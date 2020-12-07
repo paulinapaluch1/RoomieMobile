@@ -1,10 +1,12 @@
 package com.pm.roomie.roomie;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +54,8 @@ public class BillsActivity extends AppCompatActivity {
             currentUserId= (int)extras.get("userId");
         }
 
+        addAddBillListener();
+
         Call<ArrayList<Bill>> call = userService.getBills(currentUserId);
 
         call.enqueue(new Callback<ArrayList<Bill>>() {
@@ -63,10 +67,11 @@ public class BillsActivity extends AppCompatActivity {
                     if((billsList!=null)){
                         createToast("ok");
                         int size = billsList.size();
+//                        ArrayList<String> namesList=(ArrayList) billsList.stream().map(f->f.getBillType().getType()).collect(Collectors.toList());
                         ArrayList<String> namesList=(ArrayList) billsList.stream().map(f->f.getComment().concat(" ")).collect(Collectors.toList());
                         names = getStringArray(namesList);
-                        ArrayList<String> datesList=(ArrayList) billsList.stream().map(f->f.getComment().concat(" ")).collect(Collectors.toList());
-                        dates = getStringArray(datesList);
+                        ArrayList<String> datesList=(ArrayList) billsList.stream().map(f->f.getBillDate()).collect(Collectors.toList());
+                        dates = getDateArray(datesList);
                         ArrayList<Double> amountsList=(ArrayList) billsList.stream().map(f->f.getAmount()).collect(Collectors.toList());
                         amounts = getDoubleArray(amountsList);
                         ArrayList<Integer> idsList=(ArrayList) billsList.stream().map(f->f.getId()).collect(Collectors.toList());
@@ -91,6 +96,18 @@ public class BillsActivity extends AppCompatActivity {
 
     }
 
+    private void addAddBillListener() {
+        Button addButton = (Button) findViewById(R.id.addBill);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BillsActivity.this, EditBillFormActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
     private void createToast(String toastText) {
         LayoutInflater inflater = getLayoutInflater();
         View layout = inflater.inflate(R.layout.custom_toast,
@@ -108,6 +125,16 @@ public class BillsActivity extends AppCompatActivity {
         String str[] = new String[arr.size()];
         for (int j = 0; j < arr.size(); j++) {
             str[j] = arr.get(j);
+        }
+        return str;
+    }
+
+    public static String[] getDateArray(ArrayList<String> arr)
+    {
+        String str[] = new String[arr.size()];
+        for (int j = 0; j < arr.size(); j++) {
+            str[j] = arr.get(j);
+            str[j] = str[j].substring(0,10);
         }
         return str;
     }

@@ -1,6 +1,7 @@
 package com.pm.roomie.roomie.remote;
 
 import com.pm.roomie.roomie.model.Bill;
+import com.pm.roomie.roomie.model.MembersBill;
 import com.pm.roomie.roomie.model.User;
 
 import java.util.ArrayList;
@@ -23,6 +24,15 @@ public interface UserService {
     @GET("getBills/{userId}")
     Call<ArrayList<Bill>> getBills(@Path("userId") int userId);
 
+    @GET("getBillsDetails/{id}")
+    Call<ArrayList<Bill>> getBillsDetails(@Path("id") int id);
+
+//    @GET("getUserBillsDetails/{id}")
+//    Call<ArrayList<Bill>> getUserBillsDetails(@Path("id") int id);
+
+    @GET("getUserBills/{userId}")
+    Call<ArrayList<MembersBill>> getUserBills(@Path("userId") int userId);
+
     @HTTP(method = "POST", path = "archive/{id}")
     Call<Boolean> archiveUser(@Path("id") Integer id);
 
@@ -35,6 +45,14 @@ public interface UserService {
     @HTTP(method = "POST", path = "updateUser", hasBody = true)
     Call<Boolean> update(@Body User newUser);
 
+    @HTTP(method = "POST", path = "saveBill", hasBody = true)
+    Call<String> saveBill(@Body Bill newBill);
+
+    @GET("getUserById/{id}")
+    Call<User> getUserById(@Path("id")Integer id);
+
+    @GET("getBillById/{id}")
+    Call<Bill> getBillById(@Path("id")Integer id);
 
 //
 //    @HTTP(method = "POST", path = "send/{instructor}", hasBody = true)
