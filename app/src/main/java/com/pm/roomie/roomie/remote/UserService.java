@@ -1,6 +1,7 @@
 package com.pm.roomie.roomie.remote;
 
 import com.pm.roomie.roomie.model.Bill;
+import com.pm.roomie.roomie.model.Product;
 import com.pm.roomie.roomie.model.User;
 
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public interface UserService {
 
     @HTTP(method = "POST", path = "updateUser", hasBody = true)
     Call<Boolean> update(@Body User newUser);
+
+    @GET("getProducts/{userId}")
+    Call<ArrayList<Product>> getProducts(@Path("userId") int id);
 
 
 //

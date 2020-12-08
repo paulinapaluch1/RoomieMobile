@@ -90,7 +90,7 @@ public class FlatmateAdapter extends ArrayAdapter<String> {
                             } else {
                                 createToast("Archiwizacja nie powiodla się", layoutInflater, row,context);
                             }}else{
-                            createToast("Wystąpił błąd spróbuj ponownie", layoutInflater, row,context);
+                            createToast("Wystąpił błąd response unsuccessful", layoutInflater, row,context);
                         }
                     }
 

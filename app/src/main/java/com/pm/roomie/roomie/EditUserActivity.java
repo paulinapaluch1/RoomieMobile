@@ -11,7 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.pm.roomie.roomie.login.LoginViewModel;
+import com.pm.roomie.roomie.login.LoginViewModelFactory;
 import com.pm.roomie.roomie.model.User;
 import com.pm.roomie.roomie.remote.ApiUtils;
 import com.pm.roomie.roomie.remote.UserService;
@@ -23,12 +26,13 @@ import retrofit2.Response;
 public class EditUserActivity extends AppCompatActivity {
 
     private UserService userService;
-
+    private LoginViewModel loginViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_form);
         userService = ApiUtils.getUserService();
+        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory()).get(LoginViewModel.class);
         final TextView header = findViewById(R.id.header);
         header.setText("Edytuj lokatora");
         Bundle extras = getIntent().getExtras();
@@ -39,6 +43,8 @@ public class EditUserActivity extends AppCompatActivity {
         fillUserData(extras, login, name, surname, phone);
         addCancelListener();
         addSaveListener();
+        addBackListener();
+        addLogoutListener();
     }
 
     private void fillUserData(Bundle extras, EditText login, EditText name, EditText surname, EditText phone) {
@@ -144,5 +150,30 @@ public class EditUserActivity extends AppCompatActivity {
         user.setPassword(password.getText().toString());
         user.setPhone(phone.getText().toString());
         return user;
+    }
+
+    private void addBackListener() {
+        Button backButton = (Button) findViewById(R.id.back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EditUserActivity.this, FlatmatesActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+    private void addLogoutListener() {
+        Button archiveButton = (Button) findViewById(R.id.logout);
+        archiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginViewModel.logout();
+                Intent intent = new Intent(EditUserActivity.this, MainActivity.class);
+                Toast.makeText(getApplicationContext(), "Wylogowano", Toast.LENGTH_LONG).show();
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
