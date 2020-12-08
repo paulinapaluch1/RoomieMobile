@@ -1,6 +1,7 @@
 package com.pm.roomie.roomie.remote;
 
 import com.pm.roomie.roomie.model.Bill;
+import com.pm.roomie.roomie.model.Product;
 import com.pm.roomie.roomie.model.MembersBill;
 import com.pm.roomie.roomie.model.User;
 
@@ -39,8 +40,6 @@ public interface UserService {
     @HTTP(method = "POST", path = "saveUser/{flatId}", hasBody = true)
     Call<Boolean> save(@Body User newUser, @Path("flatId") Integer flatId);
 
-    @GET("getUserById/{id}")
-    Call<User> getUserById(@Path("id")Integer id);
 
     @HTTP(method = "POST", path = "updateUser", hasBody = true)
     Call<Boolean> update(@Body User newUser);
@@ -53,6 +52,9 @@ public interface UserService {
 
     @GET("getBillById/{id}")
     Call<Bill> getBillById(@Path("id")Integer id);
+    @GET("getProducts/{userId}")
+    Call<ArrayList<Product>> getProducts(@Path("userId") int id);
+
 
 //
 //    @HTTP(method = "POST", path = "send/{instructor}", hasBody = true)

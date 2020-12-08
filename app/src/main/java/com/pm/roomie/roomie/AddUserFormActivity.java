@@ -11,7 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
+import com.pm.roomie.roomie.login.LoginViewModel;
+import com.pm.roomie.roomie.login.LoginViewModelFactory;
 import com.pm.roomie.roomie.model.User;
 import com.pm.roomie.roomie.remote.ApiUtils;
 import com.pm.roomie.roomie.remote.UserService;
@@ -25,7 +28,7 @@ import static com.pm.roomie.roomie.CurrentLoggedUser.getUser;
 public class AddUserFormActivity extends AppCompatActivity {
 
     private UserService userService;
-
+    private LoginViewModel loginViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +37,9 @@ public class AddUserFormActivity extends AppCompatActivity {
         addSaveListener();
         userService = ApiUtils.getUserService();
         createNewUser();
-
-
+        addBackListener();
+        loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory()).get(LoginViewModel.class);
+        addLogoutListener();
 
     }
 
@@ -116,5 +120,31 @@ public class AddUserFormActivity extends AppCompatActivity {
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(layout);
         toast.show();
+    }
+
+    private void addBackListener() {
+        Button backButton = (Button) findViewById(R.id.back);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddUserFormActivity.this, FlatmatesActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void addLogoutListener() {
+        Button archiveButton = (Button) findViewById(R.id.logout);
+        archiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginViewModel.logout();
+                Intent intent = new Intent(AddUserFormActivity.this, MainActivity.class);
+                Toast.makeText(getApplicationContext(), "Wylogowano", Toast.LENGTH_LONG).show();
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

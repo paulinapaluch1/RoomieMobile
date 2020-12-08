@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.pm.roomie.roomie.login.LoginViewModel;
 import com.pm.roomie.roomie.login.LoginViewModelFactory;
+import com.pm.roomie.roomie.model.Product;
 import com.pm.roomie.roomie.model.User;
 import com.pm.roomie.roomie.remote.ApiUtils;
 import com.pm.roomie.roomie.remote.UserService;
@@ -30,61 +31,60 @@ import retrofit2.Response;
 
 import static com.pm.roomie.roomie.CurrentLoggedUser.getUser;
 
-
-public class FlatmatesActivity extends AppCompatActivity {
+public class QueueActivity extends AppCompatActivity {
 
     private UserService userService;
     private LoginViewModel loginViewModel;
 
     ListView listView;
-    String[] names;
-    String[] debits = {"70","50","10","0","0","40","20"};
-    String[] phones = {"12345678","5358706345"};
+    String[] names={"Janusz","Kaja"};
+    String[] products = {"Płyn do naczyń","Domestos","Papier toaletowy"};
+    Integer [] ids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flatmates);
+        setContentView(R.layout.activity_queue);
         userService = ApiUtils.getUserService();
         int currentUserId = getUser().getId();
 
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory()).get(LoginViewModel.class);
 
-        showFlatmates(currentUserId);
+        showProducts();
         addLogoutListener();
         addAddListener();
         addBackListener();
     }
 
-    private void showFlatmates(int currentUserId) {
-        Call<ArrayList<User>> call = userService.getFlatmates(currentUserId);
+    private void showProducts() {
+        Call<ArrayList<Product>> call = userService.getProducts(getUser().getId());
 
-        call.enqueue(new Callback<ArrayList<User>>() {
+        call.enqueue(new Callback<ArrayList<Product>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+            public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
                 if (response.isSuccessful()) {
-                    ArrayList<User> flatmatesList = response.body();
-                    if((flatmatesList!=null)){
-                        ArrayList<String> namesList=(ArrayList) flatmatesList.stream().map(f->f.getName().concat(" ").concat(f.getSurname())).collect(Collectors.toList());
-                        names = getStringArray(namesList);
-                        ArrayList<String> phonesList=(ArrayList) flatmatesList.stream().map(f->f.getPhone()).collect(Collectors.toList());
-                        phones = getStringArray(phonesList);
-                        ArrayList<Integer> idsList=(ArrayList) flatmatesList.stream().map(f->f.getId()).collect(Collectors.toList());
-                        Integer[] ids = getIntegerArray(idsList);
+                    ArrayList<Product> productList = response.body();
+                    if((productList!=null)){
+                        ArrayList<String> productsList = (ArrayList) productList.stream().map(f->f.getName()).collect(Collectors.toList());
+                        products = getStringArray(productsList);
+                        ArrayList<Integer> idsList = (ArrayList) productList.stream().map(f->f.getId()).collect(Collectors.toList());
+                        ids = getIntegerArray(idsList);
+                        getFlatmates(getUser().getId());
                         listView = findViewById(R.id.listView);
-                        FlatmateAdapter flatmateAdapter = new FlatmateAdapter(getApplicationContext(),names,debits,phones, ids);
+                        QueueAdapter flatmateAdapter = new QueueAdapter(getApplicationContext(), names, products, ids);
                         listView.setAdapter(flatmateAdapter);
                     } else {
-                        createToast("Lista lokatorow jest pusta");
+                        createToast("Lista produktów jest pusta");
                     }}else{
-                        createToast("Wystąpił błąd. Spróbuj ponownie");
+                    createToast("Wystąpił błąd. Spróbuj ponownie");
                 }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
-                Toast.makeText(FlatmatesActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+            public void onFailure(Call<ArrayList<Product>> call, Throwable t) {
+                createToast("Wystąpił błąd. Spróbuj ponownie");
+
             }
         });
     }
@@ -95,7 +95,7 @@ public class FlatmatesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginViewModel.logout();
-                Intent intent = new Intent(FlatmatesActivity.this, MainActivity.class);
+                Intent intent = new Intent(QueueActivity.this, MainActivity.class);
                 Toast.makeText(getApplicationContext(), "Wylogowano", Toast.LENGTH_LONG).show();
                 startActivity(intent);
                 finish();
@@ -108,8 +108,7 @@ public class FlatmatesActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FlatmatesActivity.this, AddUserFormActivity.class);
-
+                Intent intent = new Intent(QueueActivity.this, AddUserFormActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -148,12 +147,37 @@ public class FlatmatesActivity extends AppCompatActivity {
         return str;
     }
 
+    private void getFlatmates(int currentUserId) {
+        Call<ArrayList<User>> call = userService.getFlatmates(currentUserId);
+
+        call.enqueue(new Callback<ArrayList<User>>() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<User> flatmatesList = response.body();
+                    if((flatmatesList!=null)){
+                        ArrayList<String> namesList=(ArrayList) flatmatesList.stream().map(f->f.getName().concat(" ").concat(f.getSurname())).collect(Collectors.toList());
+                        names = getStringArray(namesList);
+                    } else {
+                        createToast("Lista lokatorow jest pusta");
+                    }}else{
+                    createToast("Wystąpił błąd. Spróbuj ponownie");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+            }
+        });
+    }
+
     private void addBackListener() {
         Button backButton = (Button) findViewById(R.id.back);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FlatmatesActivity.this, FlatmatesActivity.class);
+                Intent intent = new Intent(QueueActivity.this, StartActivity.class);
                 startActivity(intent);
                 finish();
             }

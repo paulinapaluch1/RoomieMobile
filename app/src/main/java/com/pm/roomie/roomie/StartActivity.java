@@ -15,7 +15,8 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         final Button billsButton = findViewById(R.id.bills);
         Bundle extras = getIntent().getExtras();
-        addNewFlatmate(extras);
+        addNewFlatmateListener(extras);
+        adQueueListener();
 
         billsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,7 +31,7 @@ public class StartActivity extends AppCompatActivity {
 
 
 
-    private void addNewFlatmate(Bundle extras) {
+    private void addNewFlatmateListener(Bundle extras) {
         final Button flatmatesButton = findViewById(R.id.flatMembers);
 
         flatmatesButton.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +39,21 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(StartActivity.this, FlatmatesActivity.class);
                 intent.putExtra("userId",  (int)extras.get("id"));
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+    }
+
+    private void adQueueListener() {
+        final Button flatmatesButton = findViewById(R.id.queue);
+
+        flatmatesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, QueueActivity.class);
                 startActivity(intent);
                 finish();
 

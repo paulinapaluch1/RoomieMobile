@@ -29,7 +29,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".EditUserActivity"></activity>
+        <activity android:name=".AddProductActivity"></activity>
+        <activity android:name=".ProductHistoryActivity" />
+        <activity android:name=".QueueActivity" />
+        <activity android:name=".EditUserActivity" />
         <activity android:name=".AddUserFormActivity" />
         <activity android:name=".FlatmatesActivity" />
         <activity android:name=".BillsActivity" />
