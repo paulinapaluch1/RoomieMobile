@@ -7,6 +7,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pm.roomie.roomie.activities.flatmembers.FlatmatesActivity;
+import com.pm.roomie.roomie.activities.queue.QueueActivity;
+
 public class StartActivity extends AppCompatActivity {
 
     @Override

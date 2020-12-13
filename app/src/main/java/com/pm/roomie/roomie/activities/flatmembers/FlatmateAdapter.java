@@ -1,4 +1,4 @@
-package com.pm.roomie.roomie;
+package com.pm.roomie.roomie.activities.flatmembers;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.pm.roomie.roomie.EditUserActivity;
+import com.pm.roomie.roomie.R;
 import com.pm.roomie.roomie.remote.ApiUtils;
 import com.pm.roomie.roomie.remote.UserService;
 

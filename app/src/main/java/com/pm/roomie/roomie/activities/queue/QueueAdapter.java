@@ -1,4 +1,4 @@
-package com.pm.roomie.roomie;
+package com.pm.roomie.roomie.activities.queue;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,26 +13,30 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.pm.roomie.roomie.R;
 import com.pm.roomie.roomie.remote.ApiUtils;
 import com.pm.roomie.roomie.remote.UserService;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.pm.roomie.roomie.CurrentLoggedUser.getUser;
 import static com.pm.roomie.roomie.R.layout.row;
 
 public class QueueAdapter extends ArrayAdapter<String> {
     private UserService userService;
     private Context context;
 
-    private Integer[] ids;
     private String[] names;
     private String[] products;
 
 
-    public QueueAdapter(@NonNull Context context,  String[] names,String[] products, Integer[] ids) {
+    public QueueAdapter(@NonNull Context context,  String[] names,String[] products) {
         super(context, row,names);
         this.context = context;
         this.names = names;
         this.products = products;
-        this.ids = ids;
         this.userService =  ApiUtils.getUserService();
     }
 
@@ -46,31 +50,51 @@ public class QueueAdapter extends ArrayAdapter<String> {
         name.setText(names[position]+" - twoja kolej!");
         product.setText(products[position]);
 
-        addHistoryListener(ids[position], layoutInflater, row);
-        addRegisterListener(ids[position], row);
+        addHistoryListener(products[position], layoutInflater, row);
+        addRegisterListener(products[position], layoutInflater, row);
 
         return row;
     }
 
-    private void addRegisterListener(Integer id, View row) {
-        Button editButton = (Button) row.findViewById(R.id.add);
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(context, ReqisterProductActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                context.startActivity(intent);
-            }
+
+    private void addRegisterListener(String productName, LayoutInflater layoutInflater, View row) {
+        Button registerButton = row.findViewById(R.id.register);
+        registerButton.setOnClickListener(v -> {
+            Call<Boolean> call = userService.registerBuying(productName, getUser().getId());
+
+            call.enqueue(new Callback<Boolean>() {
+                @Override
+                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                    if (response.isSuccessful()) {
+                        Boolean resObj = response.body();
+                        if(resObj){
+                            createToast("Zarejestrowano zakup", layoutInflater, row,context);
+                        } else {
+                            createToast("Rejestracja zakupu nie powiodła się", layoutInflater, row,context);
+                        }}else{
+                        createToast("Wystąpił błąd response unsuccessful", layoutInflater, row,context);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Boolean> call, Throwable t) {
+                    createToast("Wystąpił błąd. Spróbuj ponownie", layoutInflater, row,context);
+
+                }
+
+            });
+
         });
+
     }
 
-    private void addHistoryListener(Integer id, LayoutInflater layoutInflater, View row) {
+    private void addHistoryListener(String product, LayoutInflater layoutInflater, View row) {
         Button archiveButton = (Button) row.findViewById(R.id.history);
         archiveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProductHistoryActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("name",product);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 

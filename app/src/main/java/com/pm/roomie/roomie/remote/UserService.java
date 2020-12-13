@@ -1,9 +1,11 @@
 package com.pm.roomie.roomie.remote;
 
 import com.pm.roomie.roomie.model.Bill;
-import com.pm.roomie.roomie.model.Product;
 import com.pm.roomie.roomie.model.MembersBill;
+import com.pm.roomie.roomie.model.Product;
 import com.pm.roomie.roomie.model.User;
+import com.pm.roomie.roomie.model.dtos.ProductHistoryDto;
+import com.pm.roomie.roomie.model.dtos.QueueDto;
 
 import java.util.ArrayList;
 
@@ -52,8 +54,18 @@ public interface UserService {
 
     @GET("getBillById/{id}")
     Call<Bill> getBillById(@Path("id")Integer id);
+
     @GET("getProducts/{userId}")
-    Call<ArrayList<Product>> getProducts(@Path("userId") int id);
+    Call<ArrayList<QueueDto>> getProducts(@Path("userId") int id);
+
+    @HTTP(method = "POST", path = "saveProduct/{id}", hasBody = true)
+    Call<Boolean> saveNewProduct(@Body Product newProduct,  @Path("id")int id);
+
+    @GET("getProductHistory/{name}/{idUser}")
+    Call<ArrayList<ProductHistoryDto>> getProductHistory(@Path("name") String name, @Path("idUser") int id);
+
+    @GET("registerBuying/{name}/{idUser}")
+    Call<Boolean> registerBuying(@Path("name") String name,@Path("idUser") int id);
 
 
 //

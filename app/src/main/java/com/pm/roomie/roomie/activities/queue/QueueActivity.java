@@ -1,4 +1,4 @@
-package com.pm.roomie.roomie;
+package com.pm.roomie.roomie.activities.queue;
 
 import android.content.Intent;
 import android.os.Build;
@@ -15,10 +15,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.pm.roomie.roomie.MainActivity;
+import com.pm.roomie.roomie.R;
+import com.pm.roomie.roomie.StartActivity;
 import com.pm.roomie.roomie.login.LoginViewModel;
 import com.pm.roomie.roomie.login.LoginViewModelFactory;
-import com.pm.roomie.roomie.model.Product;
 import com.pm.roomie.roomie.model.User;
+import com.pm.roomie.roomie.model.dtos.QueueDto;
 import com.pm.roomie.roomie.remote.ApiUtils;
 import com.pm.roomie.roomie.remote.UserService;
 
@@ -37,17 +40,14 @@ public class QueueActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
 
     ListView listView;
-    String[] names={"Janusz","Kaja"};
-    String[] products = {"Płyn do naczyń","Domestos","Papier toaletowy"};
-    Integer [] ids;
+    String[] names;
+    String[] products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_queue);
         userService = ApiUtils.getUserService();
-        int currentUserId = getUser().getId();
-
         loginViewModel = ViewModelProviders.of(this, new LoginViewModelFactory()).get(LoginViewModel.class);
 
         showProducts();
@@ -57,22 +57,21 @@ public class QueueActivity extends AppCompatActivity {
     }
 
     private void showProducts() {
-        Call<ArrayList<Product>> call = userService.getProducts(getUser().getId());
+        Call<ArrayList<QueueDto>> call = userService.getProducts(getUser().getId());
 
-        call.enqueue(new Callback<ArrayList<Product>>() {
+        call.enqueue(new Callback<ArrayList<QueueDto>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
+            public void onResponse(Call<ArrayList<QueueDto>> call, Response<ArrayList<QueueDto>> response) {
                 if (response.isSuccessful()) {
-                    ArrayList<Product> productList = response.body();
+                    ArrayList<QueueDto> productList = response.body();
                     if((productList!=null)){
-                        ArrayList<String> productsList = (ArrayList) productList.stream().map(f->f.getName()).collect(Collectors.toList());
+                        ArrayList<String> productsList = (ArrayList) productList.stream().map(f->f.getProductName()).collect(Collectors.toList());
                         products = getStringArray(productsList);
-                        ArrayList<Integer> idsList = (ArrayList) productList.stream().map(f->f.getId()).collect(Collectors.toList());
-                        ids = getIntegerArray(idsList);
-                        getFlatmates(getUser().getId());
+                        ArrayList<String> namesList = (ArrayList) productList.stream().map(f->f.getUserName()).collect(Collectors.toList());
+                        names = getStringArray(namesList);
                         listView = findViewById(R.id.listView);
-                        QueueAdapter flatmateAdapter = new QueueAdapter(getApplicationContext(), names, products, ids);
+                        QueueAdapter flatmateAdapter = new QueueAdapter(getApplicationContext(), names, products);
                         listView.setAdapter(flatmateAdapter);
                     } else {
                         createToast("Lista produktów jest pusta");
@@ -82,12 +81,13 @@ public class QueueActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Product>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<QueueDto>> call, Throwable t) {
                 createToast("Wystąpił błąd. Spróbuj ponownie");
 
             }
         });
     }
+
 
     private void addLogoutListener() {
         Button archiveButton = (Button) findViewById(R.id.logout);
@@ -108,7 +108,7 @@ public class QueueActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(QueueActivity.this, AddUserFormActivity.class);
+                Intent intent = new Intent(QueueActivity.this, AddProductActivity.class);
                 startActivity(intent);
                 finish();
             }

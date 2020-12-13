@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7F6F6"
-    tools:context=".ProductHistoryActivity">
+    tools:context=".activities.queue.ProductHistoryActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,13 +47,14 @@
 
     </androidx.appcompat.widget.Toolbar>
     </LinearLayout>
+
     <TextView
         android:id="@+id/header"
-        android:layout_width="393dp"
-        android:layout_height="49dp"
+        android:layout_width="399dp"
+        android:layout_height="38dp"
         android:layout_marginTop="92dp"
         android:gravity="center_horizontal"
-        android:text="Historia zakupów"
+        android:text="Historia zakupów produktu"
         android:textColor="@android:color/black"
         android:textSize="25sp"
         android:typeface="serif"
@@ -63,5 +64,35 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.274" />
 
+    <TextView
+        android:id="@+id/product"
+        android:layout_width="399dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="140dp"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textSize="25sp"
+        android:textColor="#dc003a"
+        android:typeface="serif"
+        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.274" />
+
+    <TextView
+        android:id="@+id/history"
+        android:layout_width="320dp"
+        android:layout_height="503dp"
+        android:layout_marginTop="200dp"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:typeface="serif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

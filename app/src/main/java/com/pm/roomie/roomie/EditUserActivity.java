@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.pm.roomie.roomie.activities.flatmembers.FlatmatesActivity;
 import com.pm.roomie.roomie.login.LoginViewModel;
 import com.pm.roomie.roomie.login.LoginViewModelFactory;
 import com.pm.roomie.roomie.model.User;

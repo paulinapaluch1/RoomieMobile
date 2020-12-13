@@ -49,15 +49,14 @@
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="438dp"
-        android:layout_height="553dp"
+        android:layout_width="453dp"
+        android:layout_height="585dp"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-    </ListView>
+        tools:ignore="MissingConstraints"></ListView>
 
     <Button
         android:id="@+id/add"
@@ -66,7 +65,7 @@
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
         android:background="#dc003a"
         android:text="Dodaj"
         android:textColor="@android:color/white"
@@ -76,6 +75,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listView"
-        app:layout_constraintVertical_bias="0.954" />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

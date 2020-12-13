@@ -1,12 +1,10 @@
 package com.pm.roomie.roomie;
 
-    import android.content.Intent;
     import android.os.Build;
     import android.os.Bundle;
     import android.view.LayoutInflater;
     import android.view.View;
     import android.view.ViewGroup;
-    import android.widget.Button;
     import android.widget.CheckBox;
     import android.widget.ListView;
     import android.widget.TextView;
@@ -15,21 +13,17 @@ package com.pm.roomie.roomie;
     import androidx.annotation.RequiresApi;
     import androidx.appcompat.app.AppCompatActivity;
 
-    import com.pm.roomie.roomie.model.Bill;
+    import com.pm.roomie.roomie.activities.flatmembers.FlatmatesActivity;
     import com.pm.roomie.roomie.model.MembersBill;
-    import com.pm.roomie.roomie.model.User;
     import com.pm.roomie.roomie.remote.ApiUtils;
     import com.pm.roomie.roomie.remote.UserService;
 
     import java.util.ArrayList;
-    import java.util.Date;
     import java.util.stream.Collectors;
 
     import retrofit2.Call;
     import retrofit2.Callback;
     import retrofit2.Response;
-    import java.text.SimpleDateFormat;
-    import java.text.ParseException;
 
 
 public class MembersBillsActivity extends AppCompatActivity {
@@ -80,7 +74,7 @@ public class MembersBillsActivity extends AppCompatActivity {
                         Integer[] ids = getIntegerArray(idsList);
 //
                         listView = findViewById(R.id.listViewBills);
-                        MembersBillAdapter billAdapter = new MembersBillAdapter(getApplicationContext(),names,dates,dividedamounts, ids);
+                        FlatmatesActivity.MembersBillAdapter billAdapter = new FlatmatesActivity.MembersBillAdapter(getApplicationContext(),names,dates,dividedamounts, ids);
                         listView.setAdapter(billAdapter);
                     } else {
                         createToast("Lista rachunków jest pusta");
