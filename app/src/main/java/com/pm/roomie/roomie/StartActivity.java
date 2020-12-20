@@ -22,6 +22,7 @@ public class StartActivity extends AppCompatActivity {
         final Button billsButton = findViewById(R.id.bills);
         Bundle extras = getIntent().getExtras();
         addNewFlatmateListener(extras);
+        addTimetableListener(extras);
         adQueueListener();
         addChecklistListener();
 
@@ -35,8 +36,6 @@ public class StartActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     private void addNewFlatmateListener(Bundle extras) {
         final Button flatmatesButton = findViewById(R.id.flatMembers);
@@ -61,6 +60,22 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StartActivity.this, QueueActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+    }
+
+    private void addTimetableListener(Bundle extras) {
+        final Button timetableButton = findViewById(R.id.timetable);
+
+        timetableButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, TimetableActivity.class);
+                intent.putExtra("userId",  (int)extras.get("id"));
                 startActivity(intent);
                 finish();
 

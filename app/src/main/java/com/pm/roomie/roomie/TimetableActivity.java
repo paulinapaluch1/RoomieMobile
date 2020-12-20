@@ -14,74 +14,62 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.pm.roomie.roomie.model.Bill;
-import com.pm.roomie.roomie.model.User;
+import com.pm.roomie.roomie.model.object.TimetableObject;
 import com.pm.roomie.roomie.remote.ApiUtils;
 import com.pm.roomie.roomie.remote.UserService;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.stream.Collectors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 
 import static com.pm.roomie.roomie.CurrentLoggedUser.getUser;
 
 
-public class BillsActivity extends AppCompatActivity {
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_bills);
+public class TimetableActivity extends AppCompatActivity {
 
     private UserService userService;
 
     ListView listView;
+    String[] dates;
     String[] names;
-    String[] dates={"2020-10-11", "2020-10-21", "2020-11-11"};
-    Double[] amounts={128.5, 29.0, 350.0};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bills);
+        setContentView(R.layout.activity_timetable);
         userService = ApiUtils.getUserService();
         Bundle extras = getIntent().getExtras();
         int currentUserId = getUser().getId();
 
-        addAddBillListener();
+
+        addShowDutyListener();
+        addAddDutyListener();
         addBackListener();
 
-        Call<ArrayList<Bill>> call = userService.getBills(currentUserId);
+        Call<ArrayList<TimetableObject>> call = userService.getTimetable(currentUserId);
 
-        call.enqueue(new Callback<ArrayList<Bill>>() {
+        call.enqueue(new Callback<ArrayList<TimetableObject>>() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
-            public void onResponse(Call<ArrayList<Bill>> call, Response<ArrayList<Bill>> response) {
+            public void onResponse(Call<ArrayList<TimetableObject>> call, Response<ArrayList<TimetableObject>> response) {
                 if (response.isSuccessful()) {
-                    ArrayList<Bill> billsList = response.body();
-                    if((billsList!=null)){
-                        createToast("ok");
-                        int size = billsList.size();
-//                        ArrayList<String> namesList=(ArrayList) billsList.stream().map(f->f.getBillType().getType()).collect(Collectors.toList());
-                        ArrayList<String> namesList=(ArrayList) billsList.stream().map(f->f.getComment().concat(" ")).collect(Collectors.toList());
-                        names = getStringArray(namesList);
-                        ArrayList<String> datesList=(ArrayList) billsList.stream().map(f->f.getBillDate()).collect(Collectors.toList());
+                    ArrayList<TimetableObject> timetableList = response.body();
+                    if((timetableList!=null)){
+                        int size = timetableList.size();
+                        ArrayList<String> datesList=(ArrayList) timetableList.stream().map(f->f.getDate()).collect(Collectors.toList());
                         dates = getDateArray(datesList);
-                        ArrayList<Double> amountsList=(ArrayList) billsList.stream().map(f->f.getAmount()).collect(Collectors.toList());
-                        amounts = getDoubleArray(amountsList);
-                        ArrayList<Integer> idsList=(ArrayList) billsList.stream().map(f->f.getId()).collect(Collectors.toList());
+                        ArrayList<String> namesList=(ArrayList) timetableList.stream().map(f->f.getFlatMemberName().concat(" ").concat(f.getFlatMemberSurname())).collect(Collectors.toList());
+                        names = getStringArray(namesList);
+                        ArrayList<Integer> idsList=(ArrayList) timetableList.stream().map(f->f.getId()).collect(Collectors.toList());
                         Integer[] ids = getIntegerArray(idsList);
-//
-                        listView = findViewById(R.id.listViewBills);
-                        BillAdapter billAdapter = new BillAdapter(getApplicationContext(),names,dates,amounts, ids);
-                        listView.setAdapter(billAdapter);
+                        listView = findViewById(R.id.listViewTimetable);
+                        TimetableAdapter timetableAdapter = new TimetableAdapter(getApplicationContext(), names, dates, ids);
+                        listView.setAdapter(timetableAdapter);
                     } else {
-                        createToast("Lista rachunków jest pusta");
+                        createToast("Grafik jest pusty");
                     }}else{
                     createToast("Wystąpił błąd. Spróbuj ponownie");
                 }
@@ -89,23 +77,12 @@ public class BillsActivity extends AppCompatActivity {
 
             //
             @Override
-            public void onFailure(Call<ArrayList<Bill>> call, Throwable t) {
-                Toast.makeText(BillsActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+            public void onFailure(Call<ArrayList<TimetableObject>> call, Throwable t) {
+                Toast.makeText(TimetableActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
 
-    }
 
-    private void addAddBillListener() {
-        Button addButton = (Button) findViewById(R.id.addBill);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BillsActivity.this, EditBillFormActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 
     private void createToast(String toastText) {
@@ -158,12 +135,36 @@ public class BillsActivity extends AppCompatActivity {
         return str;
     }
 
+    private void addShowDutyListener() {
+        Button showDuties = (Button) findViewById(R.id.showDuties);
+        showDuties.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimetableActivity.this, DutiesActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void addAddDutyListener() {
+        Button showDuties = (Button) findViewById(R.id.addTimetable);
+        showDuties.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TimetableActivity.this, AddTimetableActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
     private void addBackListener() {
         Button backButton = (Button) findViewById(R.id.back);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BillsActivity.this, StartActivity.class);
+                Intent intent = new Intent(TimetableActivity.this, StartActivity.class);
                 startActivity(intent);
                 finish();
             }

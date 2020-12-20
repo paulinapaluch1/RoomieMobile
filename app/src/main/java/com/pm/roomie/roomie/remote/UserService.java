@@ -1,11 +1,16 @@
 package com.pm.roomie.roomie.remote;
 
 import com.pm.roomie.roomie.model.Bill;
+import com.pm.roomie.roomie.model.FlatMember;
+import com.pm.roomie.roomie.model.Product;
 import com.pm.roomie.roomie.model.MembersBill;
 import com.pm.roomie.roomie.model.Product;
+import com.pm.roomie.roomie.model.Timetable;
 import com.pm.roomie.roomie.model.User;
 import com.pm.roomie.roomie.model.dtos.ProductHistoryDto;
 import com.pm.roomie.roomie.model.dtos.QueueDto;
+import com.pm.roomie.roomie.model.object.FlatMemberObject;
+import com.pm.roomie.roomie.model.object.TimetableObject;
 
 import java.util.ArrayList;
 
@@ -75,6 +80,18 @@ public interface UserService {
 
     @GET("saveChecklistItem/{name}/{idUser}")
     Call<Boolean> saveChecklistItem(@Path("name") String name, @Path("idUser") int userId);
+
+    @GET("getTimetable/{userId}")
+    Call<ArrayList<TimetableObject>> getTimetable(@Path("userId") int userId);
+
+    @HTTP(method = "POST", path = "saveTimetable/{flatMemberId}", hasBody = true)
+    Call<Boolean> saveTimetable(@Body Timetable newTimetable, @Path("flatMemberId") Integer flatMemberId);
+
+    @GET("getFlatMemberById/{id}")
+    Call<FlatMember> getFlatMemberById(@Path("id") Integer id);
+
+    @GET("getFlatmembers/{userId}")
+    Call<ArrayList<FlatMemberObject>> getFlatmembers(@Path("userId") int userId);
 
 
 //
