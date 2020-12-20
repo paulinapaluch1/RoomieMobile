@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F7F6F6"
     android:weightSum="2"
-    tools:context=".EditBillFormActivity">
+    tools:context=".AddUserFormActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,127 +52,69 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/header"
         android:layout_width="393dp"
         android:layout_height="49dp"
         android:layout_marginTop="92dp"
         android:gravity="center_horizontal"
-        android:text="Dodaj rachunek:"
+        android:text="Dodaj grafik:"
         android:textColor="@android:color/black"
         android:textSize="25sp"
         android:typeface="serif"
-        app:layout_constraintBottom_toTopOf="@+id/billType"
+        app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.274" />
 
-    <EditText
-        android:id="@+id/billType"
+    <Spinner
+        android:id="@+id/nameAddTimetable"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="148dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/edit_text"
-        android:hint="Typ rachunku"
-        android:inputType="textNoSuggestions"
+        android:inputType="textEmailAddress"
         android:paddingLeft="5dp"
         android:selectAllOnFocus="true"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/billAmount"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="216dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/edit_text"
-        android:hint="Wartość"
-        android:inputType="textNoSuggestions"
-        android:paddingLeft="5dp"
-        android:selectAllOnFocus="true"
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="331dp"
+        android:layout_height="395dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="208dp"
+        android:layout_marginEnd="34dp"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:calendarTextColor="#dc003a"
+        android:headerBackground="#dc003a"
+        android:yearListSelectorColor="#dc003a"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/billDate"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="288dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/edit_text"
-        android:hint="Data"
-        android:inputType="textNoSuggestions"
-        android:paddingLeft="5dp"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/billComment"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="360dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/edit_text"
-        android:hint="Komentarz"
-        android:inputType="textNoSuggestions"
-        android:paddingLeft="5dp"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ImageView
-        android:id="@+id/billImage"
-        android:layout_width="67dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="25dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/billComment"
-        app:srcCompat="@drawable/bill"
-        tools:ignore="MissingConstraints" />
-
-    <Button
-        android:id="@+id/billUpload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="115dp"
-        android:onClick="startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY); "
-        android:text="Dodaj zdjęcie"
-        android:textColor="#dc003a"
-        android:textSize="11sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/billComment"
-        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/cancel"
         android:layout_width="143dp"
         android:layout_height="53dp"
         android:layout_gravity="start"
-        android:layout_marginBottom="144dp"
+        android:layout_marginBottom="60dp"
         android:background="#706F6F"
         android:text="@string/cancel"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/datePicker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toStartOf="parent" />
@@ -182,15 +124,16 @@
         android:layout_width="143dp"
         android:layout_height="53dp"
         android:layout_gravity="start"
-        android:layout_marginBottom="144dp"
+        android:layout_marginBottom="60dp"
         android:background="#dc003a"
         android:text="@string/save"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
+        app:layout_constraintTop_toBottomOf="@id/datePicker"
         app:layout_constraintHorizontal_bias="0.903"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -41,6 +41,9 @@
         <activity android:name=".ShowBillsDetailsActivity" />
         <activity android:name=".ShowBillsDetailsUserActivity" />
         <activity android:name=".EditBillFormActivity"/>
+        <activity android:name=".TimetableActivity"/>
+        <activity android:name=".DutiesActivity"/>
+        <activity android:name=".AddTimetableActivity"/>
         <activity android:name=".StartActivity" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <!-- android:value="AIzaSyBI0sXO1I6aOWhAtU99fYU2u-FqKADdJlA"/> -->
