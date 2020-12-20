@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F7F6F6"
-    tools:context=".MainActivity">
+    tools:context=".activities.checklist.ChecklistActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -46,15 +46,31 @@
 
         </androidx.appcompat.widget.Toolbar>
     </LinearLayout>
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="399dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="92dp"
+        android:gravity="center_horizontal"
+        android:text="Sprawdź przed wyjściem"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:typeface="serif"
+        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.274" />
+
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="453dp"
-        android:layout_height="585dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="419dp"
+        android:layout_height="485dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="148dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.261"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"></ListView>
@@ -66,7 +82,7 @@
         android:layout_gravity="start"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         android:background="#dc003a"
         android:text="Dodaj"
         android:textColor="@android:color/white"
@@ -76,6 +92,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.954" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

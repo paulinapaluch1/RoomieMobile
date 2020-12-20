@@ -29,7 +29,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.queue.AddProductActivity"></activity>
+        <activity android:name=".activities.checklist.AddItemActivity"></activity>
+        <activity android:name=".activities.checklist.ChecklistActivity" />
+        <activity android:name=".activities.queue.AddProductActivity" />
         <activity android:name=".activities.queue.ProductHistoryActivity" />
         <activity android:name=".activities.queue.QueueActivity" />
         <activity android:name=".EditUserActivity" />
@@ -40,7 +42,7 @@
         <activity android:name=".MembersBillsActivity" />
         <activity android:name=".ShowBillsDetailsActivity" />
         <activity android:name=".ShowBillsDetailsUserActivity" />
-        <activity android:name=".EditBillFormActivity"/>
+        <activity android:name=".EditBillFormActivity" />
         <activity android:name=".StartActivity" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <!-- android:value="AIzaSyBI0sXO1I6aOWhAtU99fYU2u-FqKADdJlA"/> -->

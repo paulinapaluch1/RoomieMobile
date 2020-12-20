@@ -7,8 +7,11 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pm.roomie.roomie.activities.checklist.ChecklistActivity;
 import com.pm.roomie.roomie.activities.flatmembers.FlatmatesActivity;
 import com.pm.roomie.roomie.activities.queue.QueueActivity;
+
+import static com.pm.roomie.roomie.CurrentLoggedUser.getUser;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -20,6 +23,7 @@ public class StartActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         addNewFlatmateListener(extras);
         adQueueListener();
+        addChecklistListener();
 
         billsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +45,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StartActivity.this, FlatmatesActivity.class);
-                intent.putExtra("userId",  (int)extras.get("id"));
+                intent.putExtra("userId",  getUser().getId());
                 startActivity(intent);
                 finish();
 
@@ -64,6 +68,22 @@ public class StartActivity extends AppCompatActivity {
         });
 
     }
+
+    private void addChecklistListener() {
+        final Button flatmatesButton = findViewById(R.id.checklist);
+
+        flatmatesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, ChecklistActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+    }
+
 
     private void goToMainActivity() {
         Intent intent = new Intent(StartActivity.this, MainActivity.class);

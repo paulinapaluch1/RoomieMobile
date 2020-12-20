@@ -67,6 +67,15 @@ public interface UserService {
     @GET("registerBuying/{name}/{idUser}")
     Call<Boolean> registerBuying(@Path("name") String name,@Path("idUser") int id);
 
+    @GET("getChecklist/{userId}")
+    Call<ArrayList<String>> getChecklist(@Path("userId") int currentUserId);
+
+    @GET("deleteItem/{item}/{idUser}")
+    Call<Boolean> deleteItem(@Path("item") String item,@Path("idUser") int userId);
+
+    @GET("saveChecklistItem/{name}/{idUser}")
+    Call<Boolean> saveChecklistItem(@Path("name") String name, @Path("idUser") int userId);
+
 
 //
 //    @HTTP(method = "POST", path = "send/{instructor}", hasBody = true)
