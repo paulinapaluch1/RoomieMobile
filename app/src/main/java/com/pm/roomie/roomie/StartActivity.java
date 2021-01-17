@@ -19,22 +19,14 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        final Button billsButton = findViewById(R.id.bills);
+
         Bundle extras = getIntent().getExtras();
         addNewFlatmateListener(extras);
-        addTimetableListener(extras);
+        addTimetableListener();
         adQueueListener();
         addChecklistListener();
+        addBillListener();
 
-        billsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StartActivity.this, BillsActivity.class);
-                intent.putExtra("userId",  (int)extras.get("id"));
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 
     private void addNewFlatmateListener(Bundle extras) {
@@ -48,6 +40,21 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
+            }
+        });
+
+    }
+
+    private void addBillListener() {
+        final Button billsButton = findViewById(R.id.bills);
+
+        billsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StartActivity.this, BillsActivity.class);
+                intent.putExtra("userId",  getUser().getId());
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -68,14 +75,14 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
-    private void addTimetableListener(Bundle extras) {
+    private void addTimetableListener() {
         final Button timetableButton = findViewById(R.id.timetable);
 
         timetableButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StartActivity.this, TimetableActivity.class);
-                intent.putExtra("userId",  (int)extras.get("id"));
+                intent.putExtra("userId",  getUser().getId());
                 startActivity(intent);
                 finish();
 

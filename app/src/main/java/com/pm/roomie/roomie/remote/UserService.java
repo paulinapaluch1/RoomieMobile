@@ -9,6 +9,7 @@ import com.pm.roomie.roomie.model.Timetable;
 import com.pm.roomie.roomie.model.User;
 import com.pm.roomie.roomie.model.dtos.ProductHistoryDto;
 import com.pm.roomie.roomie.model.dtos.QueueDto;
+import com.pm.roomie.roomie.model.object.BillObject;
 import com.pm.roomie.roomie.model.object.FlatMemberObject;
 import com.pm.roomie.roomie.model.object.TimetableObject;
 
@@ -52,13 +53,13 @@ public interface UserService {
     Call<Boolean> update(@Body User newUser);
 
     @HTTP(method = "POST", path = "saveBill", hasBody = true)
-    Call<String> saveBill(@Body Bill newBill);
+    Call<String> saveBill(@Body BillObject newBill);
 
     @GET("getUserById/{id}")
     Call<User> getUserById(@Path("id")Integer id);
 
     @GET("getBillById/{id}")
-    Call<Bill> getBillById(@Path("id")Integer id);
+    Call<BillObject> getBillById(@Path("id")Integer id);
 
     @GET("getProducts/{userId}")
     Call<ArrayList<QueueDto>> getProducts(@Path("userId") int id);

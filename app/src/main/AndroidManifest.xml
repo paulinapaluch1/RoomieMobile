@@ -42,6 +42,7 @@
         <activity android:name=".MembersBillsActivity" />
         <activity android:name=".ShowBillsDetailsActivity" />
         <activity android:name=".ShowBillsDetailsUserActivity" />
+        <activity android:name=".AddBillFormActivity" />
         <activity android:name=".EditBillFormActivity" />
         <activity android:name=".TimetableActivity"/>
         <activity android:name=".DutiesActivity"/>

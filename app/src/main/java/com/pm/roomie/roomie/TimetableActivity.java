@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.pm.roomie.roomie.login.LoginViewModel;
 import com.pm.roomie.roomie.model.object.TimetableObject;
 import com.pm.roomie.roomie.remote.ApiUtils;
 import com.pm.roomie.roomie.remote.UserService;
@@ -31,6 +32,7 @@ import static com.pm.roomie.roomie.CurrentLoggedUser.getUser;
 public class TimetableActivity extends AppCompatActivity {
 
     private UserService userService;
+    private LoginViewModel loginViewModel;
 
     ListView listView;
     String[] dates;
@@ -48,6 +50,7 @@ public class TimetableActivity extends AppCompatActivity {
         addShowDutyListener();
         addAddDutyListener();
         addBackListener();
+        addLogoutListener();
 
         Call<ArrayList<TimetableObject>> call = userService.getTimetable(currentUserId);
 
@@ -165,6 +168,20 @@ public class TimetableActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TimetableActivity.this, StartActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private void addLogoutListener() {
+        Button archiveButton = (Button) findViewById(R.id.logout);
+        archiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginViewModel.logout();
+                Intent intent = new Intent(TimetableActivity.this, MainActivity.class);
+                Toast.makeText(getApplicationContext(), "Wylogowano", Toast.LENGTH_LONG).show();
                 startActivity(intent);
                 finish();
             }

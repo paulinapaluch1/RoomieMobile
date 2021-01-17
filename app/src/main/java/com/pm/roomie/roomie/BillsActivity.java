@@ -29,21 +29,18 @@ import retrofit2.Response;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
+import static com.pm.roomie.roomie.CurrentLoggedUser.getBill;
 import static com.pm.roomie.roomie.CurrentLoggedUser.getUser;
 
 
 public class BillsActivity extends AppCompatActivity {
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_bills);
 
     private UserService userService;
 
     ListView listView;
     String[] names;
-    String[] dates={"2020-10-11", "2020-10-21", "2020-11-11"};
-    Double[] amounts={128.5, 29.0, 350.0};
+    String[] dates;
+    Double[] amounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +98,7 @@ public class BillsActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BillsActivity.this, EditBillFormActivity.class);
+                Intent intent = new Intent(BillsActivity.this, AddBillFormActivity.class);
                 startActivity(intent);
                 finish();
             }

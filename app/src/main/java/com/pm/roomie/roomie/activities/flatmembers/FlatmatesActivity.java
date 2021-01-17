@@ -24,6 +24,7 @@ import com.pm.roomie.roomie.AddUserFormActivity;
 import com.pm.roomie.roomie.MainActivity;
 import com.pm.roomie.roomie.R;
 import com.pm.roomie.roomie.ShowBillsDetailsUserActivity;
+import com.pm.roomie.roomie.StartActivity;
 import com.pm.roomie.roomie.login.LoginViewModel;
 import com.pm.roomie.roomie.login.LoginViewModelFactory;
 import com.pm.roomie.roomie.model.User;
@@ -162,7 +163,7 @@ public class FlatmatesActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FlatmatesActivity.this, FlatmatesActivity.class);
+                Intent intent = new Intent(FlatmatesActivity.this, StartActivity.class);
                 startActivity(intent);
                 finish();
             }

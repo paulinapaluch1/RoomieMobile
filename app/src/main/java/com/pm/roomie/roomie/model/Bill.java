@@ -1,5 +1,6 @@
 package com.pm.roomie.roomie.model;
 
+import java.sql.Blob;
 import java.util.List;
 
 import lombok.Data;

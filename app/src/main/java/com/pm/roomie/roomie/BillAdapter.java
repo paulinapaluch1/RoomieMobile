@@ -20,6 +20,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.pm.roomie.roomie.CurrentLoggedUser.getBill;
+
 public class BillAdapter extends ArrayAdapter<String> {
 
     private UserService userService;
@@ -53,14 +55,15 @@ public class BillAdapter extends ArrayAdapter<String> {
         amount.setText("Kwota: " + amounts[position]+" zł");
 
         addDetailsListener(ids[position], row);
+        editBillListener(ids[position], row);
 
         return row;
     }
 
     private void addDetailsListener(Integer id, View row) {
 
-        Button detailsButton = (Button) row.findViewById(R.id.detailsAdmin);
-        detailsButton.setOnClickListener(new View.OnClickListener() {
+        Button editButton = (Button) row.findViewById(R.id.detailsAdmin);
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ShowBillsDetailsActivity.class);
@@ -70,6 +73,22 @@ public class BillAdapter extends ArrayAdapter<String> {
             }
         });
     }
+
+    private void editBillListener(Integer id, View row) {
+
+        Button detailsButton = (Button) row.findViewById(R.id.editAdmin);
+        detailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EditBillFormActivity.class);
+//                intent.putExtra("billId",  getBill().getId());
+                intent.putExtra("id", id);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
+    }
+
     private void createToast(String toastText, LayoutInflater inflater, View row, Context comtext) {
         View layout = inflater.inflate(R.layout.custom_toast,
                 (ViewGroup) row.findViewById(R.id.custom_toast_container));

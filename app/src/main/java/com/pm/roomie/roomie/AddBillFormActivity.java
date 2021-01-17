@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditBillFormActivity extends AppCompatActivity {
+public class AddBillFormActivity extends AppCompatActivity {
     private UserService userService;
     private LoginViewModel loginViewModel;
 
@@ -33,45 +33,13 @@ public class EditBillFormActivity extends AppCompatActivity {
         addCancelListener();
         addSaveListener();
         userService = ApiUtils.getUserService();
-        Bundle extras = getIntent().getExtras();
         final TextView header = findViewById(R.id.title);
-        header.setText("Edytuj rachunek");
-        final EditText type = findViewById(R.id.billType);
-        final EditText amount = findViewById(R.id.billAmount);
-        final EditText dateBill = findViewById(R.id.billDate);
-        final EditText comment = findViewById(R.id.billComment);
-        fillBillData(extras, type, amount, dateBill, comment);
+        header.setText("Dodaj rachunek");
         createNewBill();
+
         addBackListener();
         addLogoutListener();
-    }
 
-    private void fillBillData(Bundle extras, EditText type, EditText amount, EditText dateBill, EditText comment) {
-
-        Call<BillObject> call = userService.getBillById((int)extras.get("id"));
-
-        call.enqueue(new Callback<BillObject>() {
-            @Override
-            public void onResponse(Call<BillObject> call, Response<BillObject> response) {
-                if (response.isSuccessful()) {
-                    BillObject resObj = response.body();
-                    if(!(resObj.getId()==0)){
-                        type.setText(resObj.getBillType());
-                        amount.setText(resObj.getAmount());
-                        dateBill.setText(resObj.getBillDate());
-                        comment.setText(resObj.getComment());
-                    } else {
-                        createToast("Bład");
-                    }}else{
-                    createToast("Wystąpił błąd. Spróbuj ponownie");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BillObject> call, Throwable t) {
-                createToast("Wystąpił błąd. Spróbuj ponownie");
-            }
-        });
     }
 
     private BillObject createNewBill() {
@@ -96,7 +64,7 @@ public class EditBillFormActivity extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditBillFormActivity.this, BillsActivity.class);
+                Intent intent = new Intent(AddBillFormActivity.this, BillsActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -121,7 +89,7 @@ public class EditBillFormActivity extends AppCompatActivity {
                             if(!(resObj == null)){
                                 createToast(resObj);
                                 finish();
-                                Intent intent = new Intent(EditBillFormActivity.this, BillsActivity.class);
+                                Intent intent = new Intent(AddBillFormActivity.this, BillsActivity.class);
                                 startActivity(intent);
                                 finish();
 
@@ -161,7 +129,7 @@ public class EditBillFormActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditBillFormActivity.this, BillsActivity.class);
+                Intent intent = new Intent(AddBillFormActivity.this, BillsActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -174,7 +142,7 @@ public class EditBillFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginViewModel.logout();
-                Intent intent = new Intent(EditBillFormActivity.this, MainActivity.class);
+                Intent intent = new Intent(AddBillFormActivity.this, MainActivity.class);
                 Toast.makeText(getApplicationContext(), "Wylogowano", Toast.LENGTH_LONG).show();
                 startActivity(intent);
                 finish();
