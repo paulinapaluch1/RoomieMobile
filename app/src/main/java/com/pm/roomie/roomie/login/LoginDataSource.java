@@ -20,4 +20,9 @@ public class LoginDataSource {
     public void logout() {
 
     }
+
+    public static String[] getDebits() {
+        return new String[]{"70","50","10","0","0","40","20"};
+    }
+
 }

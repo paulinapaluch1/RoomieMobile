@@ -39,6 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.pm.roomie.roomie.CurrentLoggedUser.getUser;
+import static com.pm.roomie.roomie.login.LoginDataSource.getDebits;
 
 
 public class FlatmatesActivity extends AppCompatActivity {
@@ -48,8 +49,10 @@ public class FlatmatesActivity extends AppCompatActivity {
 
     ListView listView;
     String[] names;
-    String[] debits = {"70","50","10","0","0","40","20"};
-    String[] phones = {"12345678","5358706345"};
+    String[] debits;
+    String[] phones;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +85,7 @@ public class FlatmatesActivity extends AppCompatActivity {
                         phones = getStringArray(phonesList);
                         ArrayList<Integer> idsList=(ArrayList) flatmatesList.stream().map(f->f.getId()).collect(Collectors.toList());
                         Integer[] ids = getIntegerArray(idsList);
+                        debits = getDebits();
                         listView = findViewById(R.id.listView);
                         FlatmateAdapter flatmateAdapter = new FlatmateAdapter(getApplicationContext(),names,debits,phones, ids);
                         listView.setAdapter(flatmateAdapter);
@@ -238,12 +242,6 @@ public class FlatmatesActivity extends AppCompatActivity {
                 }
             });
         }
-
-    //    public void mark_payment(View v) {
-    //        if (((CheckBox) v).isChecked()) {
-    //            Toast.makeText(MembersBillsActivity.this,"Zapłacone", Toast.LENGTH_LONG).show());
-    //        }
-    //    }
 
         private void createToast(String toastText, LayoutInflater inflater, View row, Context comtext) {
             View layout = inflater.inflate(R.layout.custom_toast,
